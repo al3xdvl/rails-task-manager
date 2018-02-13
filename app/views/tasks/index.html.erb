@@ -1,8 +1,19 @@
+<div class="container">
 <h1>My tasks</h1>
 <ul>
 <li><% @tasks.each do |task| %>
-  <p class="list_tasks"><i class="far fa-square box"></i><%= link_to task.title, task_path(task.id) %></p></li>
+  <% if task.completed? %>
+    <p class="list_tasks"><i class="far fa-check-square"></i><%= link_to task.title, task_path(task.id) %><%= link_to "<i class='far fa-trash-alt'></i>".html_safe, task_delete_path(task.id),
+      method: :delete,
+      data: { confirm: "Are you sure?" } %></p></li>
+  <% else %>
+    <p class="list_tasks"><i class="far fa-square box"></i><%= link_to task.title, task_path(task.id) %><%= link_to "<i class='far fa-trash-alt'></i>".html_safe, task_delete_path(task.id),
+      method: :delete,
+      data: { confirm: "Are you sure?" } %></p></li>
+    <% end %>
+
 <% end %>
 </ul>
 
-<p><i class="far fa-plus-square"></i><%= link_to "Add a new task", task_new_path %></p>
+<p class="btn btn-primary" id="bouton"><i class="far fa-plus-square"></i><%= link_to "Add a new task", task_new_path %></p>
+</div>
